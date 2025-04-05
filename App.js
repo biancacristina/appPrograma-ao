@@ -1,124 +1,123 @@
-import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import { Input, Button, Text } from 'react-native-elements';
+import React from 'react'; 
+import { StyleSheet, Text, SafeAreaView, TouchableOpacity, Alert, View } from 'react-native'; 
+import { Avatar, Input } from 'react-native-elements'; 
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const Stack = createStackNavigator();
+export   function Login() { 
+  return ( 
+   <SafeAreaView style={styles.container}> 
+     <Avatar 
+     rounded 
+     size="xlarge" 
+     title="JP"
+     source={{
+      uri:'https://github.com/account'
+     }}
+     /> 
+     <Input 
+     placeholder="Email" 
+     leftIcon={<MaterialIcons name="email" size={24} color="black" />} 
+     containerStyle={styles.inputContainer} 
+     /> 
+     <Input 
+     placeholder="Senha" 
+     leftIcon={<MaterialIcons name="lock" size={24} color="black" />} 
+     secureTextEntry 
+     containerStyle={styles.inputContainer} 
+     /> 
+     <TouchableOpacity style={styles.botao_1}> 
+     <Text style={styles.texto}>Logar</Text> 
+     </TouchableOpacity> 
+     <TouchableOpacity style={styles.botao_1}> 
+      <Text style={styles.texto}>Cadastrar-se</Text> 
+      </TouchableOpacity> 
+      <TouchableOpacity> 
+        <Text style={styles.texto_senha}>Esqueceu a Senha</Text> 
+        </TouchableOpacity> 
+        <StatusBar style="auto" /> 
+        </SafeAreaView> 
+      ); 
+  }
 
-function Telalogin({ navigation }) {  // Nome do componente em PascalCase
-  return (
-    <View style={styles.container}>
-      <Text h3 style={styles.title}>Login</Text>
+export  function Cadastro() { 
+  return ( 
+  <SafeAreaView style={styles.container}> 
+  <Text style={styles.title}>Cadastro</Text> 
+  <Input 
+  placeholder="Nome" 
+  leftIcon={<MaterialIcons name="person" size={24} color="black" />} 
+  containerStyle={styles.inputContainer} 
+  /> 
+  <Input
+   placeholder="Email" 
+   leftIcon={<MaterialIcons name="email" size={24} color="black" />} 
+   containerStyle={styles.inputContainer} 
+   /> 
+   <Input 
+   placeholder="Senha" 
+   leftIcon={<MaterialIcons name="lock" size={24} color="black" />} 
+   secureTextEntry 
+   containerStyle={styles.inputContainer} 
+   /> 
+   <TouchableOpacity onPress={() => Alert.alert("Cadastro", "Você foi cadastrado!!")} style={styles.botao_1}> 
+    <Text style={styles.texto}>Cadastrar</Text> 
+    </TouchableOpacity> 
+    <StatusBar style="auto" /> 
+    </SafeAreaView> 
+    ); 
+  }
 
-      <Input
-        placeholder='Email'
-        leftIcon={{ type: 'material', name: 'email' }}
-        keyboardType='email-address'
-        autoCapitalize='none'
-      />
-      <Input
-        placeholder='Senha'  // Capitalizado para consistência
-        leftIcon={{ type: 'material', name: 'lock' }}
-        secureTextEntry
-      />
-      <Button
-        title="Entrar"  // Capitalizado para consistência
-        buttonStyle={styles.button}
-        onPress={() => alert('Login feito')}
-      />
-      <Button
-        title="Cadastrar"
-        buttonStyle={styles.button}
-        onPress={() => navigation.navigate('Cadastrar')}
-      />
-      <Button
-        title="Esqueceu a senha"
-        buttonStyle={styles.button}
-        onPress={() => navigation.navigate('RecSenha')}
-      />
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  export default function Recuperasenha() { 
+    return ( 
+    <SafeAreaView style={styles.container}> 
+    <Text style={styles.title}>Esqueceu a senha</Text> 
+    <Input
+     placeholder="Email" 
+     leftIcon={<MaterialIcons name="email" size={24} color="black" />} 
+     containerStyle={styles.inputContainer} 
+     /> 
+     <TouchableOpacity onPress={() => Alert.alert("Cadastro", "Você foi cadastrado!!")} style={styles.botao_1}> 
+      <Text style={styles.texto}>Enviar</Text> 
+      </TouchableOpacity> 
+      <StatusBar style="auto" /> 
+      </SafeAreaView> 
+      ); 
+    }
 
-function Cadastrar({ navigation }) {
-  return (
-    <View style={styles.container}>
-      <Text h3 style={styles.title}>Cadastrar</Text>
-      <Input
-        placeholder='Email'
-        leftIcon={{ type: 'material', name: 'email' }}
-        keyboardType='email-address'
-        autoCapitalize='none'
-      />
-      <Input
-        placeholder='Senha'  // Capitalizado para consistência
-        leftIcon={{ type: 'material', name: 'lock' }}
-        secureTextEntry
-      />
-      <Input
-        placeholder='Confirmar Senha'  // Adicionado campo de confirmação
-        leftIcon={{ type: 'material', name: 'lock' }}
-        secureTextEntry
-      />
-      <Button
-        title="Cadastrar-se"  // Texto mais claro
-        buttonStyle={styles.button}
-        onPress={() => navigation.navigate('Telalogin')}  // Nome consistente
-      />
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-function RecSenha({ navigation }) {
-  return (
-    <View style={styles.container}>
-      <Text h3 style={styles.title}>Recuperar Senha</Text>
-      <Input
-        placeholder='Email'
-        leftIcon={{ type: 'material', name: 'email' }}
-        keyboardType='email-address'
-        autoCapitalize='none'
-      />
-      <Button
-        title="Enviar link de recuperação"  // Ação mais clara
-        buttonStyle={styles.button}
-        onPress={() => navigation.navigate('Telalogin')}
-      />
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Telalogin">
-        <Stack.Screen name="Telalogin" component={Telalogin} options={{ headerShown: false }} />
-        <Stack.Screen name="Cadastrar" component={Cadastrar} />
-        <Stack.Screen name="RecSenha" component={RecSenha} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'pink',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  title: {
-    marginBottom: 30,
-  },
-  button: {
-    width: 200,
-    marginTop: 10,
-    marginBottom: 10,
-  },
+const styles = StyleSheet.create({ 
+  container: { 
+    flex: 1, 
+    backgroundColor: '#fff', 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+  }, 
+  inputContainer: { 
+    width: '30%', 
+    alignSelf: 'center', 
+  }, 
+  botao_1: { 
+    backgroundColor: 'blue', 
+    marginTop: 10, 
+    paddingVertical: 10, 
+    paddingHorizontal: 40, 
+    borderRadius: 10, 
+  }, 
+  texto: { 
+    color: 'white', 
+    fontWeight: 'bold', 
+    fontSize: 20, 
+    textAlign: 'center', 
+  }, 
+  texto_senha: { 
+    color: 'black', 
+    fontWeight: 'bold', 
+    fontSize: 20, 
+    paddingTop: 10, 
+  }, 
+  title: { 
+    fontSize: 24, 
+    fontWeight: 'bold', 
+    marginBottom: 20, 
+  }, 
 });
